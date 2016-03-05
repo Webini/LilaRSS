@@ -25,11 +25,11 @@ module.exports = {
           allowNull: false,
       },
       pubDate: {
-          type: Sequelize.DATETIME,
+          type: Sequelize.DATE,
           allowNull: true,
       },
       date: {
-          type: Sequelize.DATETIME,
+          type: Sequelize.DATE,
           allowNull: true,
       },
       author: {
@@ -42,7 +42,7 @@ module.exports = {
       },
       uniqId: {
           type: Sequelize.STRING,
-          allowNull: true,
+          allowNull: false,
           unique: true
       },
       channelId: {

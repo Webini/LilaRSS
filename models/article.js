@@ -33,7 +33,7 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.STRING,
         allowNull: true,
     },
-    uniqid: {
+    uniqId: {
         type: DataTypes.STRING,
         allowNull: true,
         unique: true
