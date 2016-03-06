@@ -2,3 +2,4 @@ node_modules
 bower_components
 config/config.json
 config/config.test.json
+npm-debug.log

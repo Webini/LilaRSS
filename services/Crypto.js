@@ -49,4 +49,4 @@ class Crypto {
 }
 
 
-module.exports = [ 'Crypto', new Crypto() ];
+module.exports = new Crypto();

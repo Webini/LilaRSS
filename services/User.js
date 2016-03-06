@@ -79,4 +79,4 @@ class User {
     }
 };
 
-module.exports = [ 'User', new User() ];
+module.exports = new User();

@@ -1,13 +1,37 @@
-var db       = require(__dirname + '/models/index.js');
-var services = require(__dirname + '/services/index.js');
-var config   = require(__dirname + '/config/config' + (process.env.PLATFORM ? '.' + process.env.PLATFORM : '') + '.json'); 
+"use strict";
+
+const controllers = require(__dirname + '/controllers/index.js');
+const middlewares = require(__dirname + '/middlewares/index.js');
+const db          = require(__dirname + '/models/index.js');
+const services    = require(__dirname + '/services/index.js');
+const config      = require(__dirname + '/config/config' + (process.env.PLATFORM ? '.' + process.env.PLATFORM : '') + '.json'); 
+const Express     = require('express');
+const bodyParser  = require('body-parser')
+
+var   httpApp     = Express();
+var   router      = Express.Router();
+var   server      = require('http').Server(httpApp);
+
+httpApp.use(Express.static(config.http.static));
+httpApp.use(bodyParser.json());
+httpApp.use('/', router);
 
 var app = {
-    orm:        db,
-    config:     config,
-    services:   services
+    http:          httpApp,
+    server:        server,
+    orm:           db,
+    config:        config,
+    services:      services,
+    controllers:   controllers,
+    router:        router,
+    middlewares:   middlewares
 };
 
 module.exports = app;
 
 services.ready();
+middlewares.ready();
+controllers.ready();
+
+//include & create routing
+require(__dirname + '/routes/index.js');

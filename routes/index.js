@@ -3,7 +3,7 @@
 var fs        = require("fs");
 var path      = require("path");
 var basename  = path.basename(module.filename);
-var services  = {};
+var routes    = {};
 
 fs
   .readdirSync(__dirname)
@@ -12,17 +12,9 @@ fs
   })
   .forEach(function(file) {
     var name = path.basename(file, '.js');
-    var service = require(path.join(__dirname, file));
-    services[name] = service;
+    var route = require(path.join(__dirname, file));
+    routes[name] = new route();
   });
 
 
-services['ready'] = function(){
-    for(var name in this){
-        if(name != 'ready' && this[name] && this[name].ready){
-            this[name].ready();
-        }
-    }
-};
-
-module.exports = services;
+module.exports = routes;

@@ -103,4 +103,4 @@ class Authenticator {
 }
 
 
-module.exports = [ 'Authenticator', new Authenticator() ];
+module.exports = new Authenticator();
