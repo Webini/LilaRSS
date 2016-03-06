@@ -10,6 +10,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false
     }
   }, {
+    freezeTableName: true,
     timestamps: true,
     classMethods: {
       associate: function(models) {

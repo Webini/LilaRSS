@@ -30,6 +30,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: true
     }
   }, {
+    freezeTableName: true,
     timestamps: true,
     classMethods: {
         associate: function(models) {

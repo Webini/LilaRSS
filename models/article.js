@@ -18,11 +18,11 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
     },
     pubDate: {
-        type: DataTypes.DATETIME,
+        type: DataTypes.DATE,
         allowNull: true,
     },
     date: {
-        type: DataTypes.DATETIME,
+        type: DataTypes.DATE,
         allowNull: true,
     },
     author: {
@@ -35,7 +35,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     uniqId: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         unique: true
     },
     channelId: {
@@ -43,6 +43,7 @@ module.exports = function(sequelize, DataTypes) {
         allowNull: false,
     }
   }, {
+    freezeTableName: true,
     timestamps: true,
     classMethods: {
       associate: function(models) {

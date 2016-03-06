@@ -18,7 +18,7 @@ module.exports = {
           allowNull: false
       },
       salt: {
-          type: Sequelize.STRING(32),
+          type: Sequelize.STRING(64),
           allowNull: false
       },
       roles: {
