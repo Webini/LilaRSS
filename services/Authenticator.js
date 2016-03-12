@@ -43,8 +43,8 @@ class Authenticator {
         
         hash.update(seed);
         
-        for(var i = 0; i < 10; i++){
-            var nhash = crypto.createHash('sha512');
+        for(let i = 0; i < 10; i++){
+            let nhash = crypto.createHash('sha512');
             nhash.update(hash.digest('hex'));
             hash = nhash;
         }

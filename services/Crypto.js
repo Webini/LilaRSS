@@ -19,8 +19,8 @@ class Crypto {
         var hash = new crypt.createHash('sha512');
         hash.update(salt + pass + this.config.Secret);
         
-        for(var i = 0; i < 32; i++){
-            var nhash = new crypt.createHash('sha512');
+        for(let i = 0; i < 32; i++){
+            let nhash = new crypt.createHash('sha512');
             nhash.update(this.config.secret + hash.digest('hex'));
             hash = nhash;    
         }
@@ -41,9 +41,10 @@ class Crypto {
         
         var out = '';    
 
-        for(var i = 0; i < length; i++)
+        for(let i = 0; i < length; i++){
             out += chars[Math.floor(Math.random() * (chars.length - 1))];
-
+        }
+        
         return out;
     }
 }
