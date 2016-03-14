@@ -21,7 +21,7 @@ class Authenticator {
      * @param string renewKey specific renew key, generated with #generateRenewKey()
      * @return string token
      */
-    createToken(data, renewKey){
+    createRenewableToken(data, renewKey){
         if(!renewKey){
             renewKey = this.generateRenewKey();
         }
@@ -31,6 +31,27 @@ class Authenticator {
             this.config.secret, 
             { expiresIn: this.config.expiresIn }
         );
+    }
+    
+    /**
+     * Create a non renewable token 
+     * @param {object} data
+     * @return {string} token
+     */
+    createToken(data){
+        return jwt.sign(
+            _.extend({ __renew_key: null }, data), 
+            this.config.secret, 
+            { expiresIn: this.config.expiresIn }
+        );
+    }
+    
+    /**
+     * Validity time in sec
+     * @return {int} 
+     */
+    get validityTime(){
+        return this.config.expiresIn;
     }
     
     /**
@@ -61,21 +82,19 @@ class Authenticator {
         
         jwt.verify(oldToken, this.config.secret, {}, function(err, decoded){
             if(err){
-                decoded = jwt.decode(oldToken)
-                
                 if(err.name !== 'TokenExpiredError'){
                     defer.reject(err);
+                    return;
                 }
+                
+                decoded = jwt.decode(oldToken)
             }
             
             if(decoded.__renew_key === renewKey){
-                defer.resolve(decoded)
+                defer.resolve(decoded);
             }
             else{
-                defer.reject({
-                    name: 'InvalidRenewKey',
-                    message: 'The renew key is invalid'
-                });
+                defer.reject(new Error('InvalidRenewKey'));
             }
         });  
         

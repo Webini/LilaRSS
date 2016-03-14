@@ -21,6 +21,10 @@ module.exports = {
           type: Sequelize.STRING(64),
           allowNull: false
       },
+      username: {
+          type: Sequelize.STRING(64),
+          allowNull: false
+      },
       roles: {
           type: Sequelize.INTEGER.UNSIGNED,
           defaultValue: 1,

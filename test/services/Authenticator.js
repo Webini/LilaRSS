@@ -15,7 +15,7 @@ describe('services.Authenticator', function(){
     
     describe('#createToken()', function(){
         it('should not be empty', function(){
-            var token = AuthService.createToken(data);
+            var token = AuthService.createRenewableToken(data);
             assert.ok(typeof token === 'string' && token.length > 0);  
         });
     });
@@ -23,7 +23,7 @@ describe('services.Authenticator', function(){
     describe('#verifyToken()', function(){
         it('should be valid', function(){
             var renewKey = AuthService.generateRenewKey();
-            var token    = AuthService.createToken(data, renewKey);
+            var token    = AuthService.createRenewableToken(data, renewKey);
             
             return AuthService.verifyToken(token).then(
                 function success(decoded){
@@ -35,7 +35,7 @@ describe('services.Authenticator', function(){
         });
         
         it('should be invalid', function(done){
-            var token = AuthService.createToken(data);
+            var token = AuthService.createRenewableToken(data);
              
             setTimeout(function(){
                 AuthService.verifyToken(token).then(
@@ -54,14 +54,14 @@ describe('services.Authenticator', function(){
     describe('#canRenewToken', function(){
         it('should be valid', function(){
             var renewKey = AuthService.generateRenewKey();
-            var token    = AuthService.createToken(data, renewKey);
+            var token    = AuthService.createRenewableToken(data, renewKey);
             
             return AuthService.canRenewToken(token, renewKey);
         });
         
         it('should be valid after token expiration', function(done){
             var renewKey = AuthService.generateRenewKey();
-            var token    = AuthService.createToken(data, renewKey);
+            var token    = AuthService.createRenewableToken(data, renewKey);
             
             setTimeout(function(){
                 AuthService.canRenewToken(token, renewKey).then(
@@ -73,7 +73,7 @@ describe('services.Authenticator', function(){
         
         it('should be invalid', function(){
             var randomKey = AuthService.generateRenewKey();
-            var token     = AuthService.createToken(data);
+            var token     = AuthService.createRenewableToken(data);
             
             return AuthService.canRenewToken(token, randomKey).then(
                 function(){

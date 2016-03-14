@@ -9,6 +9,13 @@ module.exports = function(sequelize, DataTypes) {
             isEmail: true
         }
     },
+    username: {
+        type: DataTypes.STRING(64),
+        allowNull: false,
+        validate: {
+            len: [ 0, 64 ]
+        }
+    },
     password: {
         type: DataTypes.STRING,
         allowNull: false
@@ -17,7 +24,7 @@ module.exports = function(sequelize, DataTypes) {
         type: DataTypes.VIRTUAL,
         allowNull: false,
         validate: {
-            len: [ 5, 64 ]
+            len: [ 7, 64 ]
         }
     },
     salt: {
@@ -33,6 +40,16 @@ module.exports = function(sequelize, DataTypes) {
   {
     freezeTableName: true,
     timestamps: true,
+    getterMethods: {
+        public: function(){
+            return {
+                id: this.id,
+                username: this.username,
+                email: this.email,
+                roles: this.roles,
+            };
+        }
+    },
     classMethods: {
       associate: function(models) {
         User.hasMany(models.UserArticleReaded, { 

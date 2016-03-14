@@ -40,6 +40,22 @@ class User {
     }
     
     /**
+     * Try to get an user with hist id
+     * @param {integer} id
+     * @çeturn {promise}
+     */
+    getOneById(id){
+        return UserModel.findOne({ where: { id: id }}).then(
+            function(user){
+                if(user === null){
+                    throw new UserNotFoundException();
+                }
+                return user;
+            }
+        )
+    }
+    
+    /**
      * Create a new user
      * @param object data { email: userEmail, password: userPassword }
      */
@@ -50,6 +66,7 @@ class User {
         return UserModel.create({
             email: data.email,
             passwordText: data.passwordText,
+            username: data.username,
             password: password,
             salt: salt,
             roles: this.ROLES.USER

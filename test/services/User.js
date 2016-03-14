@@ -10,7 +10,8 @@ describe('services.User', function(){
         it('should not throw errors', function(){
             return UserService.create({
                 email: 'test@test.fr',
-                passwordText: 'abcdef'
+                username: 'test',
+                passwordText: 'abcdefgh'
             }).then(function(user){
                 return user.destroy();  
             });
@@ -19,6 +20,7 @@ describe('services.User', function(){
         it('should not create user', function(){
             return UserService.create({
                 email: 'ThisIsNotAnEmail',
+                username: 'test',
                 passwordText: 'too' //short
             }).then(
                 function(user){
@@ -47,7 +49,8 @@ describe('services.User', function(){
         it('should remove user with his ID', function(){
             return UserService.create({
                 email: 'test@test.fr',
-                passwordText: 'abcdef'
+                username: 'test',
+                passwordText: 'abcdefgh'
             }).then(function(user){
                 return UserService.removeOne(user.id); 
             });
@@ -56,7 +59,8 @@ describe('services.User', function(){
         it('should remove user with his instance', function(){
             return UserService.create({
                 email: 'test@test.fr',
-                passwordText: 'abcdef'
+                username: 'test',
+                passwordText: 'abcdefgh'
             }).then(function(user){
                 return UserService.removeOne(user); 
             });
@@ -84,7 +88,8 @@ describe('services.User', function(){
         it('should not log user', function(){
             return UserService.create({
                 email: 'test_login@test.fr',
-                passwordText: 'abcdef'
+                username: 'test',
+                passwordText: 'abcdefgh'
             }).then(function(user){ 
                 return UserService.login('test_login@test.fr', 'yolo').then(
                     function success(user){
@@ -107,9 +112,10 @@ describe('services.User', function(){
         it('should log user', function(){
             return UserService.create({
                 email: 'test_login@test.fr',
-                passwordText: 'abcdef'
+                username: 'test',
+                passwordText: 'abcdefgh'
             }).then(function(user){ 
-                return UserService.login('test_login@test.fr', 'abcdef').then(
+                return UserService.login('test_login@test.fr', 'abcdefgh').then(
                     function(){
                         return user.destroy();   
                     },
