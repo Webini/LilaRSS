@@ -57,7 +57,7 @@ class User {
     
     /**
      * Create a new user
-     * @param object data { email: userEmail, password: userPassword }
+     * @param object data { email: userEmail, username: string, password: userPassword }
      */
     create(data){
         var salt = CryptoService.random(64);
