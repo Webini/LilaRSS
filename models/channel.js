@@ -28,6 +28,11 @@ module.exports = function(sequelize, DataTypes) {
     image: {
         type: DataTypes.STRING,
         allowNull: true
+    },
+    subscribers: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        defaultValue: 0,
+        allowNull: false
     }
   }, {
     freezeTableName: true,

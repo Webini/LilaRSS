@@ -40,7 +40,7 @@ const PURIFY_OPTIONS = {
 
 const ALLOWED_IFRAME_HOSTS = /^(http:\/\/|https:\/\/|\/\/)(www\.)?(youtube.com|dailymotion\.com|player.vimeo.com)([a-z0-9-_\.\/\?\[\]%&=]*)$/i;
 
-class ArticleScraper {
+class ArticleExtractor {
     constructor(originUrl, $el, $){
         this.originUrl  = originUrl;
         this.$container = null;
@@ -151,6 +151,6 @@ class ArticleScraper {
 
 
 module.exports = function($el, $, originUrl){
-    var scraper = new ArticleScraper(originUrl, $el, $);
+    var scraper = new ArticleExtractor(originUrl, $el, $);
     return scraper.getHtml();
 };

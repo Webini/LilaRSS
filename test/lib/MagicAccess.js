@@ -1,7 +1,7 @@
-var MagicAccess     = App.services.MagicAccess;
+var MagicAccess     = require(__dirname + '/../../lib/MagicAccess.js');
 var $q              = require('q');
 
-describe('services.MagicAccess', function(){
+describe('lib.MagicAccess', function(){
     
     describe('#set()', function(){
         it('should not allow null property', function(){

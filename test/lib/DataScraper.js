@@ -1,10 +1,10 @@
-var DataScraper = require(__dirname + '/../../services/DataScraper.js');
+var DataScraper     = require(__dirname + '/../../lib/DataScraper.js');
 var $q              = require('q');
 var util            = require('util');
 var fs              = require('fs');
 var Cheerio         = require('cheerio');
 
-describe('services.DataScraper', function(){
+describe('lib.DataScraper', function(){
     var rules = {
         'site.name' : {
             'meta[name="application-name"]' : { method: DataScraper.extractors.attr, args: [ 'content' ] },
@@ -37,11 +37,13 @@ describe('services.DataScraper', function(){
     
     describe('#extractors', function(){
         var $doc = Cheerio.load(
+            '<html xml:lang="fr-FR"><body>' +
             '<link rel="alternate" type="application/rss+xml" href="http://test.com" />' +
             '<link rel="alternate" type="application/rss+xml" href="/local/rss" title="test" />' +
             '<a href="/local">test</a>' +
             '<img src="http://test.com" width="20" height="20" />' +
-            '<p>Test <b>rich</b> text</p>'
+            '<p>Test <b>rich</b> text</p>' +
+            '</body></html>'
         );
         
         
@@ -116,6 +118,21 @@ describe('services.DataScraper', function(){
             it('should be empty object', function(){
                 assert.strictEqual(
                     DataScraper.extractors.rss($doc('invalid'), $doc),
+                    undefined
+                );
+            });
+        });
+        
+        describe('.lang', function(){
+            it('should return valid lang', function(){
+                assert.strictEqual(
+                    DataScraper.extractors.lang($doc('html'), $doc),
+                    'fr-FR'
+                );
+            });
+            it('should be undefined', function(){
+                assert.strictEqual(
+                    DataScraper.extractors.lang($doc('invalid'), $doc),
                     undefined
                 );
             });
